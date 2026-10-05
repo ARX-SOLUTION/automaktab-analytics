@@ -10,7 +10,7 @@ Self-hosted analytics and manual B2B subscription billing for Automaktab.
 - First-party collection for the marketing, tenant application, and student learning surfaces, with practice activity segmented separately
 - Individually agreed school contracts: fixed monthly, fixed annual, or monthly active-student pricing
 - Manual records of school payments, partial allocations, outstanding balances, overdue days, and in-app reminders
-- A light, Datafast-inspired interface using DM Sans, with clear hierarchy and accessible financial workflows
+- A dark deep-gray/slate interface with tech-blue accents and DM Sans, with clear hierarchy and accessible financial workflows
 - Independent hosting without a core dependency on an external analytics SaaS or session replay service
 
 Platform subscription revenue is what a school pays Automaktab. Student tuition paid to a school is a separate domain and must never be reported as platform revenue. Recording a receipt is bookkeeping; the application does not charge a card, move money, or issue a cash refund.
@@ -36,6 +36,10 @@ These paths describe the planned application. Their presence in documentation do
 4. Treat [UI/UX requirements](docs/ui-ux-requirements.md) as acceptance criteria, not optional polish
 5. Use the [agent and skill map](docs/agent-skill-map.md) to assign a writer, independent reviewers, Tester, and Adviser
 6. Keep the [decision and review register](docs/review-gates.md) open until decisions and test evidence close each item
+
+## Approved specification and pending execution plan
+
+Read the [5 October product/architecture specification](docs/specs/2026-10-05-analytics-design.md), [DataFast reference study](docs/reference.md), and [six-part design system](docs/design/DS00-overview.md). The latest dark direction supersedes earlier light requirements. Local application runtime is Docker only; DigitalOcean is the deployment target. Written spec and DS were approved on 5 October 2026. The separate [execution plan](docs/implementation-execution-plan.md) awaits bounded plan/execution approval. No runtime or deployment capability is established by these documents.
 
 ## First executable milestone
 

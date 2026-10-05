@@ -37,7 +37,7 @@ The confirmed product is an internal founder/team tool, not a school portal. Fou
 
 ## UI/UX is part of correctness
 
-The current direction is light, DM Sans, and Datafast-inspired. Earlier dark/Manrope directions are superseded. Define one versioned design-token/asset manifest before broad UI implementation. Use original composition and licensed assets; do not copy proprietary source or branding.
+The current user direction (5 October 2026) is dark deep-gray/slate with tech-blue accents and DM Sans. It supersedes the earlier light direction. The review-ready design specification is [DS00–DS05](docs/design/DS00-overview.md); implementation still requires the written-spec and plan gates. Define one versioned design-token/asset manifest before broad UI implementation. Use original composition and licensed assets; do not copy proprietary source or branding.
 
 Every product-facing UI change must cover loading, empty, error, stale/partial data, no-permission, keyboard use, narrow screens, duplicate actions, Back/Forward, interrupted sessions, and changed filters. Financial actions require explicit preview/review where specified. Never optimistically show a committed receipt or invoice close before the server confirms it.
 

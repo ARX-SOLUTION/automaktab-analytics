@@ -13,7 +13,7 @@ Before coding, inspect the selected executor's actual skill catalog and relevant
 | Coordinator | Bounded tasks, dependency order, file ownership, decisions, evidence register | Does not convert a plan into permission or override a blocking review |
 | Requirements Research | Current source facts, decision questions, metric/business definitions | Distinguishes observed facts, proposals, and unresolved choices |
 | Architect | Module boundaries, public contracts, trust/concurrency model | Avoids speculative complexity; owns interface decisions with the designated writer |
-| UX | Interaction flows, light/DM Sans specification, token/asset manifest, accessibility | Treats error/interruption/financial states as core requirements |
+| UX | Interaction flows, dark/slate/tech-blue and DM Sans specification, token/asset manifest, accessibility | Treats error/interruption/financial states as core requirements |
 | Frontend Implementer | React features and UI tests in assigned paths | Consumes agreed contracts; does not invent billing/auth semantics |
 | Backend Implementer | NestJS use cases, adapters, API contracts and backend tests | Keeps trust boundaries and source ownership intact |
 | Data/Billing Implementer | Drizzle schema, projections, exact calculations, ledger invariants | Owns financial schema/migration changes through one-writer coordination |
@@ -70,7 +70,7 @@ The names below are catalog candidates to inspect in the selected environment. T
 | Parallel task coordination | Dispatching parallel agents, subagent-driven development | Disjoint ownership, shared contracts, review assignments |
 | Implementation discipline | Test-driven development, systematic debugging | Reproduced failure, focused change, executable evidence |
 | React performance and components | React best practices, applicable design-system guidance | Maintainable components, measured behavior, no unrelated framework switch |
-| UI/UX refinement | Impeccable or equivalent design/audit workflow; product-design audit | Light/DM Sans consistency, accessible states, responsive evidence |
+| UI/UX refinement | Impeccable or equivalent design/audit workflow; product-design audit | Dark/slate/tech-blue and DM Sans consistency, accessible states, responsive evidence |
 | Backend/data work | Official NestJS/Drizzle/PostgreSQL documentation; available context/documentation lookup | Version-matched implementation and transaction proofs |
 | Browser verification | Available browser QA/verification workflow | Actual rendered-flow checks with screenshots and reproductions |
 | Review and release | Requesting/receiving code review, verification before completion | Two exact-candidate reviews and final-revision checks |
