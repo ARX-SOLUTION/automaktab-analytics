@@ -1,6 +1,6 @@
 # Coding-start implementation plan
 
-This plan supersedes older assumptions that the destination must be a new private repository or that the UI uses a dark theme. The verified historical baseline is documented in the README; the current design is light with DM Sans. All implementation milestones below are pending. Checkboxes and acceptance criteria are requirements, not completed work.
+The historical repository baseline is documented in the README. The latest user direction (5 October 2026) is dark deep-gray/slate, tech-blue and DM Sans, superseding the earlier light requirement. Read the [current written specification](specs/2026-10-05-analytics-design.md) and [DS00–DS05](design/DS00-overview.md) before preparing an execution plan. Local application runtime is Docker only; DigitalOcean is the deployment target. Written spec and DS were approved on 5 October 2026; bounded plan/execution approval remains required. Read the separate [execution plan](implementation-execution-plan.md). All implementation milestones below are pending. Checkboxes and acceptance criteria are requirements, not completed work.
 
 ## Dependency order
 
@@ -31,7 +31,7 @@ Use one writer per owned area and one designated writer for shared contracts, mi
 - If a conflict appears, record the incompatibility and compatible options. Do not silently downgrade TypeScript or change the selected stack
 - Create the workspace, basic web/API entry points, validated configuration, readiness/health, test database integration, and synthetic fixture support
 - Establish actual lint/typecheck/test/build commands and dependency lockfile; update README with tested commands and prerequisites
-- Add a clearly labeled synthetic UI shell using the approved light direction. Do not show invented data as live metrics
+- Add a clearly labeled synthetic UI shell using the approved dark direction. Do not show invented data as live metrics
 
 **Required evidence:** exact versions, lockfile, successful clean install, minimal UI/API boot, real PostgreSQL connectivity, build/typecheck/unit smoke results, and a browser smoke result. This milestone establishes a working boilerplate only after those checks pass.
 

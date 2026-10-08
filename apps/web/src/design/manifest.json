@@ -1,0 +1,47 @@
+{
+  "version": "automaktab-dark-1.0",
+  "approval": "Owner dark-slate / tech-blue design and Uzbek Latin scope, confirmed in task",
+  "mode": "operate",
+  "sources": [
+    "docs/design/DS00-overview.md",
+    "docs/design/DS01-color.md",
+    "docs/design/DS02-typography-writing.md",
+    "docs/design/DS03-spacing-radius-shadows.md",
+    "docs/design/DS04-component-anatomy-behavior.md",
+    "docs/design/DS05-controls-states.md"
+  ],
+  "tokens": "../app/styles.css",
+  "typography": {
+    "family": "DM Sans",
+    "fallback": "system-ui, sans-serif",
+    "assetStatus": "self-hosted",
+    "file": "public/fonts/DM-Sans-variable.ttf",
+    "source": "https://github.com/googlefonts/dm-fonts/tree/d0520ba03bd780f5dccb3024854463d44f699b78",
+    "license": "SIL OFL 1.1; public/fonts/OFL.txt",
+    "sha256": "8cd08d97e89c24d0aa92edd2f0f4c8ee6195eee9b7c9f154865a58b02f0c1c0d",
+    "licenseSha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1"
+  },
+  "layout": {
+    "railRem": 15,
+    "narrowNavigation": "native dialog",
+    "minimumReflowCssPixels": 320
+  },
+  "motion": {
+    "durationMs": 150,
+    "reducedMotion": "disabled"
+  },
+  "locale": "uz-Latn",
+  "businessTimezone": "Asia/Tashkent",
+  "money": {
+    "currency": "UZS",
+    "scale": 0
+  },
+  "sourceHashes": {
+    "docs/design/DS00-overview.md": "724ff0bb7ef7febcf8bbb7be062b7cb0c840c7f7fe53b25b4c5b4ea983ab1f8a",
+    "docs/design/DS01-color.md": "3dee2c1caeb837d9dcc6bdf15782068d9bbf5ccedc603d5324b22f5b1dc2d74a",
+    "docs/design/DS02-typography-writing.md": "fd09250055bc8581140ea329d0b7017b663c64e7b6e573f406a62553f298f95a",
+    "docs/design/DS03-spacing-radius-shadows.md": "366bbc9f36d1dabccff388e3a4439741c5757d8c8823e17722db366d30ada811",
+    "docs/design/DS04-component-anatomy-behavior.md": "83179b3230b66f3058c8cdbaed657d8e62b972de6bb44caa8f0f607d43a9fcf1",
+    "docs/design/DS05-controls-states.md": "b36bd80cb48b4e7fd9451b546a2b829b525fde7787b090761fe95fef454a22ba"
+  }
+}

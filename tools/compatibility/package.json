@@ -1,0 +1,47 @@
+{
+  "name": "automaktab-compatibility-fixture",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@nestjs/common": "12.1.2",
+    "@nestjs/core": "12.1.2",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "drizzle-orm": "0.45.3",
+    "pg": "8.23.1"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "@types/node": "24.19.1",
+    "vite": "8.3.2",
+    "@vitejs/plugin-react": "6.1.2",
+    "drizzle-kit": "0.31.11",
+    "@types/pg": "8.23.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "vitest": "5.0.3",
+    "@playwright/test": "1.63.0",
+    "eslint": "9.39.5",
+    "@eslint/js": "9.39.5",
+    "@babel/eslint-parser": "7.29.9",
+    "@babel/core": "7.29.7",
+    "@babel/preset-typescript": "7.29.7",
+    "@babel/plugin-syntax-decorators": "7.29.7",
+    "@babel/plugin-syntax-jsx": "7.29.7"
+  },
+  "packageManager": "pnpm@12.9.1",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "tsc -p tsconfig.json && vite build",
+    "test:di": "node build/nest-di.js",
+    "test:unit": "vitest run fixture.test.ts",
+    "lint": "eslint .",
+    "db:generate": "drizzle-kit generate",
+    "db:roundtrip": "node build/drizzle-roundtrip.js",
+    "test:browser": "playwright test",
+    "test:lint": "node lint-proof.mjs",
+    "test:types": "node type-proof.mjs"
+  }
+}

@@ -2,9 +2,9 @@
 
 ## Direction and design status
 
-Build a light, Datafast-inspired dashboard with DM Sans, restrained color, clear hierarchy, compact but readable data views, and generous separation between tasks. The influence is ease of scanning and understanding; the product needs its own composition and assets. Earlier dark/Manrope directions are superseded.
+Build an original dark deep-gray/slate dashboard with tech-blue accents and DM Sans, restrained semantic color, clear hierarchy, compact but readable data views, and generous separation between tasks. The 5 October 2026 user direction supersedes the earlier light direction; use the versioned [DS00–DS05 specification](design/DS00-overview.md). The influence is ease of scanning and understanding; the product needs its own composition and assets. Earlier palette instructions are historical; the latest user direction is authoritative.
 
-This document specifies behavior and acceptance criteria. No design token file, licensed font asset, screen implementation, or visual QA result is delivered by this documentation package. Create and approve one versioned design-token/asset manifest before broad UI work. Record source/licensing of fonts, icons, and other assets. Do not claim an earlier prototype is a backend-connected production React application.
+This document specifies behavior and acceptance criteria. Review-ready DS documents now exist; no runtime design token file, licensed font asset, screen implementation, or visual QA result is delivered by this documentation package. Create and approve one versioned design-token/asset manifest before broad UI work. Record source/licensing of fonts, icons, and other assets. Do not claim an earlier prototype is a backend-connected production React application.
 
 ## Users and core journeys
 
@@ -37,7 +37,7 @@ Avoid overwhelming the overview with every possible metric. Each card needs a us
 
 Define tokens for canvas/surface/elevation, text hierarchy, borders, accent, semantic status, spacing, type scale, radius, and focus states. Semantic status must not depend on color alone. Danger red is reserved for meaningfully overdue/error states and must be paired with text or an icon/label.
 
-Use DM Sans for the interface with a legible system fallback. Financial values, dates, table columns, and units should align consistently; use tabular figures where available. Avoid decorative gradients and crowded cards that weaken readability. Charts should match the calm light interface and retain contrast for multiple series.
+Use DM Sans for the interface with a legible system fallback. Financial values, dates, table columns, and units should align consistently; use tabular figures where available. Avoid decorative gradients and crowded cards that weaken readability. Charts should match the calm dark interface and retain contrast for multiple series.
 
 Document the current token/asset manifest version in visual review evidence. Changing the design system is a coordinated change through the designated token writer, not an ad hoc theme per page.
 

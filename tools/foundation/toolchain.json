@@ -1,0 +1,22 @@
+{
+  "scope": "Current product candidate; Docker linux/arm64. Historical T02 foundation acceptance is separate.",
+  "source": "T01 tools/compatibility/metadata.json; official npm registry matching HTTP adapter observed inside approved Docker image",
+  "httpAdapter": {
+    "package": "@nestjs/platform-express",
+    "version": "12.1.2",
+    "peerDependencies": {
+      "@nestjs/core": "^12.0.0",
+      "@nestjs/common": "^12.0.0"
+    },
+    "integrity": "sha512-//ftPv5+UONizm5zcme/AP91EFo1EsqFFyC2I3HC2w8swYVXadHKW1L3A2mgUuOhM1sdKkd2gzjQmL9504x85Q=="
+  },
+  "compiler": "Direct workspace TypeScript7.0.2, no NestCLI and no downgrade",
+  "qualification": "skipLibCheck:true retains upstream Drizzle declaration defects documented T01; strict application source checks and consumed API/runtime proofs required. ESLint9 maintenance unsupported; Babel peer intersection selected, not security certification.",
+  "migration": "Explicit ordered SQL0000–0007 with transactional advisory lock, content-hash journal, product-shape/immutability checks. No automatic service startup migration. Full current upgrade/restore/concurrency acceptance is pending.",
+  "privacy": "Synthetic credentials/config are public-safe; DB/worker use internal Docker network and API/web publish only localhost. Public/trusted collection and opt-in CRM/marketing adapters are implemented; live identities, endpoints and tracking are not activated. Web proxy accepts fixed synthetic API targets only. Retention deletion is disabled pending policy.",
+  "references": [
+    "https://registry.npmjs.org/@nestjs%2fplatform-express/12.1.2",
+    "https://node-postgres.com/apis/pool",
+    "https://docs.nestjs.com/fundamentals/lifecycle-events"
+  ]
+}

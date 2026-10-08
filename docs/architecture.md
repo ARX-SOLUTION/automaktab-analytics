@@ -14,6 +14,8 @@ The browser tracker sends privacy-filtered telemetry to a public collector. A du
 
 The operational CRM remains authoritative for its business records and retains its own persistence stack. This application uses Drizzle and must not replace the CRM's ORM or write directly into its database. The eventual source adapter must write each business mutation and outbox event atomically in the source transaction. That adapter is separate work until its repository scope is approved.
 
+Local application runtime is Docker only, including the separate worker and test services. DigitalOcean is the CI/CD deployment target; topology, secrets, operational budgets and activation are separately gated. See the [current review-ready specification](specs/2026-10-05-analytics-design.md) for approval stage and worker-path reconciliation.
+
 ## Ownership
 
 | Module | Owns | Must not do |
