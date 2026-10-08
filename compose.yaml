@@ -1,0 +1,97 @@
+name: automaktab-analytics-synthetic
+x-app: &app
+  build: .
+  image: automaktab-analytics-synthetic-foundation:local
+  init: true
+  networks: [synthetic]
+  mem_limit: 1g
+  cpus: 2
+  stop_grace_period: 15s
+  environment: &env
+    APP_ENV: synthetic
+    DATABASE_URL: postgresql://synthetic:synthetic-local-only@db:5432/automaktab_synthetic
+    PORT: '3000'
+  depends_on:
+    db:
+      condition: service_healthy
+services:
+  db:
+    networks: [synthetic]
+    image: postgres:18.6-bookworm@sha256:4c6516b5d6dfd96a6888541396f76545a63290be0aec2542547d7bcdd7515e28
+    mem_limit: 512m
+    cpus: 2
+    environment:
+      POSTGRES_USER: synthetic
+      POSTGRES_PASSWORD: synthetic-local-only
+      POSTGRES_DB: automaktab_synthetic
+    volumes:
+      - synthetic-db:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL','pg_isready -U synthetic -d automaktab_synthetic']
+      interval: 2s
+      timeout: 3s
+      retries: 15
+  checks-db:
+    networks: [synthetic]
+    image: postgres:18.6-bookworm@sha256:4c6516b5d6dfd96a6888541396f76545a63290be0aec2542547d7bcdd7515e28
+    profiles: [checks]
+    mem_limit: 512m
+    cpus: 2
+    environment:
+      POSTGRES_USER: synthetic
+      POSTGRES_PASSWORD: synthetic-local-only
+      POSTGRES_DB: automaktab_synthetic
+    tmpfs: ['/var/lib/postgresql']
+    healthcheck:
+      test: ['CMD-SHELL','pg_isready -U synthetic -d automaktab_synthetic']
+      interval: 2s
+      timeout: 3s
+      retries: 15
+  checks:
+    <<: *app
+    profiles: [checks]
+    networks: [synthetic, package-fetch]
+    mem_limit: 2g
+    environment:
+      <<: *env
+      DATABASE_URL: postgresql://synthetic:synthetic-local-only@checks-db:5432/automaktab_synthetic
+    depends_on:
+      checks-db:
+        condition: service_healthy
+    command: ['pnpm','proof']
+  api:
+    <<: *app
+    networks: [synthetic, localhost-access]
+    user: "1000:1000"
+    ports: ['127.0.0.1:18300:3000']
+    command: ['node','apps/api/dist/main.js']
+    healthcheck:
+      test: ['CMD','node','-e','fetch("http://127.0.0.1:3000/health/ready",{signal:AbortSignal.timeout(18000)}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))']
+      interval: 5s
+      timeout: 19s
+      retries: 4
+  worker:
+    <<: *app
+    user: "1000:1000"
+    command: ['node','apps/worker/dist/main.js']
+    healthcheck:
+      test: ['CMD','node','-e','fetch("http://127.0.0.1:3000/health/ready",{signal:AbortSignal.timeout(18000)}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))']
+      interval: 5s
+      timeout: 19s
+      retries: 4
+  web:
+    <<: *app
+    networks: [synthetic, localhost-access]
+    user: "1000:1000"
+    environment:
+      APP_ENV: synthetic
+      SYNTHETIC_API_URL: http://api:3000
+    ports: ['127.0.0.1:18517:5173']
+    command: ['node','node_modules/vite/bin/vite.js','preview','--config','apps/web/vite.config.ts','--configLoader','native','--host','0.0.0.0','--port','5173']
+volumes:
+  synthetic-db:
+networks:
+  synthetic:
+    internal: true
+  package-fetch: {}
+  localhost-access: {}

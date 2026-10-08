@@ -1,0 +1,11 @@
+node_modules/
+build/
+apps/web/dist/
+test-results/
+playwright-report/
+.env
+.DS_Store
+apps/api/dist/
+packages/contracts/dist/
+apps/api/drizzle/generated-review/
+apps/worker/dist/

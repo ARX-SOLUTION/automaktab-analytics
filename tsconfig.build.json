@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","compilerOptions":{"rootDir":"."},"exclude":["node_modules","build","apps/web/dist","tools/compatibility","**/*.test.ts","apps/web/e2e","playwright.config.ts","vitest.config.ts"]}

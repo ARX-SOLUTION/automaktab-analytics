@@ -1,0 +1,3 @@
+import js from '@eslint/js';
+import parser from '@babel/eslint-parser';
+export default [{ignores:['build/**','dist/**','drizzle/**','node_modules/**']},js.configs.recommended,{languageOptions:{globals:{process:'readonly',console:'readonly'}}},{files:['**/*.ts','**/*.tsx'],languageOptions:{parser,parserOptions:{requireConfigFile:false,babelOptions:{presets:['@babel/preset-typescript'],plugins:[['@babel/plugin-syntax-decorators',{legacy:true}],'@babel/plugin-syntax-jsx']}},globals:{process:'readonly',console:'readonly',document:'readonly'}},rules:{'no-undef':'off','no-unused-vars':'off','no-dupe-class-members':'off','no-redeclare':'off'}}];

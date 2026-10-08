@@ -1,0 +1,30 @@
+import {afterAll,expect,test} from 'vitest';
+import {randomUUID} from 'node:crypto';
+import {createFoundationApplication} from '../src/application/index.js';
+import {createCollectionRuntime} from '../src/modules/collection/worker.js';
+import {snapshotHash} from '../src/modules/schools/schools.service.js';
+import type {SourceRecord} from '@automaktab/contracts';
+const application=createFoundationApplication({APP_ENV:'synthetic',DATABASE_URL:process.env.DATABASE_URL});
+afterAll(()=>application.close());
+test('competing workers project an unlinked platform lead with a durable nullable-school checkpoint',async()=>{
+ const source='crm-'+randomUUID(),token='synthetic-source',id=randomUUID(),now=new Date().toISOString();
+ const first=createCollectionRuntime(application.database,{environment:'synthetic',trustedToken:token,trustedSource:source});
+ const second=createCollectionRuntime(application.database,{environment:'synthetic',trustedToken:token,trustedSource:source});
+ const event={event_id:randomUUID(),schema_version:1,name:'lead.created',source,environment:'synthetic',occurred_at:now,effective_at:now,aggregate_type:'lead',aggregate_id:id,aggregate_version:'1',properties:{lead_id:id,anonymous_id:randomUUID(),utm_source:'synthetic'}};
+ expect((await first.collector.admit({events:[event]},'trusted','Bearer '+token)).events[0]?.status).toBe('accepted');
+ await Promise.all([first.processBatch(),second.processBatch()]);
+ expect(await first.worker.checkpoint(source,'lead',id)).toMatchObject({version:'1',companyId:null});
+ expect((await first.collector.admit({events:[event]},'trusted','Bearer '+token)).events[0]?.status).toBe('duplicate');
+});
+test('lifecycle delivery before bootstrap waits for the immutable v0 baseline instead of inventing history',async()=>{
+ const source='crm-'+randomUUID(),token='synthetic-bootstrap',company=randomUUID(),now=new Date().toISOString(),cutover='2026-08-31T19:00:00Z';
+ const runtime=createCollectionRuntime(application.database,{environment:'synthetic',trustedToken:token,trustedSource:source});
+ const baseline:SourceRecord={aggregate_type:'company',aggregate_id:company,aggregate_version:'0',company_id:company,properties:{name:'Synthetic Initial School',slug:'school-'+company,status:'active',is_demo:false,created_at:cutover,deleted_at:null}};
+ const event={...baseline,event_id:randomUUID(),schema_version:1,name:'company.updated',source,environment:'synthetic',occurred_at:now,effective_at:'2026-09-02T00:00:00Z',aggregate_version:'1',properties:{...baseline.properties,name:'Synthetic Changed School'}};
+ await runtime.collector.admit({events:[event]},'trusted','Bearer '+token);await runtime.processBatch();
+ expect(await runtime.worker.checkpoint(source,'company',company)).toBeNull();
+ const current:SourceRecord={...baseline,aggregate_version:'1',properties:event.properties};
+ await runtime.collector.acceptSnapshot({schema_version:1,source,environment:'synthetic',cutover_at:cutover,as_of:now,barrier_version:'1',snapshot_hash:snapshotHash([current]),records:[current],heads:[{aggregate_type:'company',aggregate_id:company,aggregate_version:'1'}],signal_heads:[],baseline_records:[baseline],baseline_hash:snapshotHash([baseline])},'Bearer '+token);
+ await runtime.processBatch();expect(await runtime.worker.checkpoint(source,'company',company)).toMatchObject({version:'1'});
+ expect(await runtime.schools.detail({id:'synthetic-founder',environment:'synthetic'},company)).toMatchObject({name:'Synthetic Changed School'});
+});

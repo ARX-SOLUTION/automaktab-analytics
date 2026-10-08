@@ -1,6 +1,6 @@
 # API and workflow contracts
 
-**Design only.** Route names and DTOs below are proposed contracts. They are not available endpoints. Agree and version their schemas before parallel frontend/backend implementation.
+**Approved design reference.** The implementation now exposes a founder-protected OpenAPI 3.1 document at `GET /api/v1/openapi.json`, generated from registered controllers and shared input schemas. Consult that document for exact implemented routes; the proposals below do not establish runtime or deployment acceptance. The newest document's HTTP regression is awaiting authorized synthetic runtime verification.
 
 ## Shared transport rules
 
@@ -15,6 +15,8 @@ Successful responses contain `data` plus `meta: { requestId, apiVersion, replaye
 Adding a compatible optional response field is different from changing a field's meaning or unit. Breaking HTTP changes require a new major API contract. Event schema changes have their own version policy. Unknown trusted versions are quarantined and block affected completeness rather than being discarded as harmless telemetry.
 
 ## 1. Founder session
+
+Current implementation exposes a generated, founder-protected `GET /api/v1/openapi.json`. It inventories actual Nest routes, shared whole-so‘m units, event allowlists, reviewed financial inputs and cookie/source credentials. Its integration regression is pending; this addition does not make the historical proposals below implementation proof.
 
 The product serves the internal founder/authorized team. The routes below describe a proposed least-privilege founder bootstrap; exact team role grants remain unresolved. Documentation grants no identity access.
 

@@ -1,0 +1,15 @@
+{
+  "name": "@automaktab/api",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./application": {
+      "types": "./src/application/index.ts",
+      "default": "./dist/application/index.js"
+    }
+  },
+  "dependencies": {
+    "@automaktab/contracts": "workspace:*"
+  }
+}

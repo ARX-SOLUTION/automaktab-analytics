@@ -1,0 +1,9 @@
+{
+  "name": "@automaktab/web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "dependencies": {
+    "@automaktab/contracts": "workspace:*"
+  }
+}

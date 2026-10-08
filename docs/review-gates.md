@@ -4,6 +4,8 @@
 
 The 14 review gaps below are carried forward as open acceptance gates. These documents clarify the required contract; they do not demonstrate that a gap has been fixed in code. Assign a concrete owner at task start and record the decision, evidence, reviewed candidate, remaining risk, and status for each gate.
 
+The table preserves the original review baseline. Decisions approved on8 October2026 and current implementation/check results are recorded in the [specification addendum](specs/2026-10-05-analytics-design.md#product-owner-decisions-and-execution-authorization--8-october-2026) and [execution checkpoint](implementation-execution-plan.md#current-verification-checkpoint--8-october-2026). Neither those decisions nor component passes close an exact-candidate acceptance gate.
+
 Use statuses such as open, decision recorded, implemented awaiting evidence, blocked, and verified closed. “Reviewed” alone is not a closure state. A decision can unblock synthetic implementation without authorizing live activation. All technical closure claims must refer to the exact candidate and actual test result.
 
 ## 14 carried-forward review gates
