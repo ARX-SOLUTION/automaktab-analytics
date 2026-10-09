@@ -10,10 +10,11 @@ export function envelope<T>(data:T){return {data,meta:{requestId:randomUUID(),ap
 @Controller('api/v1/auth')
 export class AuthController {
  constructor(@Inject(AuthService) private readonly auth:AuthService){}
- private setSession(response:HttpResponse,token:string){response.setHeader('Set-Cookie',`analytics_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=28800${this.auth.options.environment==='production'?'; Secure':''}`);}
+ private secureCookie(){return this.auth.options.environment==='production'||new URL(this.auth.options.origin).protocol==='https:';}
+ private setSession(response:HttpResponse,token:string){response.setHeader('Set-Cookie',`analytics_session=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=28800${this.secureCookie()?'; Secure':''}`);}
  @Get('config') async config(@Res() response:HttpResponse){
   const data:{environment:string;providerConfigured:boolean;authorizeUrl?:string}={environment:this.auth.options.environment,providerConfigured:this.auth.configured};
-  if(this.auth.configured){const handoff=await this.auth.beginHandoff();data.authorizeUrl=handoff.authorizeUrl;response.setHeader('Set-Cookie',`analytics_handoff=${handoff.state}; Path=/api/v1/auth; HttpOnly; SameSite=Lax; Max-Age=300${this.auth.options.environment==='production'?'; Secure':''}`);}
+  if(this.auth.configured){const handoff=await this.auth.beginHandoff();data.authorizeUrl=handoff.authorizeUrl;response.setHeader('Set-Cookie',`analytics_handoff=${handoff.state}; Path=/api/v1/auth; HttpOnly; SameSite=Lax; Max-Age=300${this.secureCookie()?'; Secure':''}`);}
   response.json(envelope(data));
  }
  @Post('demo-session') @HttpCode(200) async demo(@Req() request:HttpRequest,@Res() response:HttpResponse){const result=await this.auth.createDemoSession(header(request,'origin'));this.setSession(response,result.token);response.json(envelope(result.session));}
@@ -25,6 +26,6 @@ export class AuthController {
  }
  @Delete('session') async logout(@Req() request:HttpRequest,@Res() response:HttpResponse){
   const token=cookie(request,'analytics_session');await this.auth.authenticate(token,{origin:header(request,'origin'),csrf:header(request,'x-csrf-token')});await this.auth.revoke(token);
-  response.setHeader('Set-Cookie','analytics_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0');response.json(envelope({revoked:true}));
+  response.setHeader('Set-Cookie',`analytics_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${this.secureCookie()?'; Secure':''}`);response.json(envelope({revoked:true}));
  }
 }

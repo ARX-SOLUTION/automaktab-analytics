@@ -6,7 +6,7 @@
 
 **Architecture:** React/Vite consumes runtime-validated transport contracts from a modular NestJS API. A separate worker consumes durable inboxes through application ports; Drizzle/PostgreSQL adapters own persistence under supplied transactions, while domain calculations stay framework-independent. Synthetic adapters precede separately authorized source integrations.
 
-**Tech Stack:** React, Vite, NestJS, Drizzle, PostgreSQL, pnpm, latest stable compatible TypeScript; Docker-only local application/test runtime; DigitalOcean deployment target.
+**Tech Stack:** React, Vite, NestJS, Drizzle, PostgreSQL, pnpm, latest stable compatible TypeScript; Docker-only local application/test runtime; Cloudflare Workers hosted runtime target, with deployment separately gated.
 
 **Spec:** [approved architecture/product specification](specs/2026-10-05-analytics-design.md), [DS00–DS05](design/DS00-overview.md), [reference study](reference.md), existing [M0–M8 plan](implementation-plan.md), [contracts](api-contracts.md), [G01–G14](review-gates.md), [UI criteria](ui-ux-requirements.md) and [mandatory roles](agent-skill-map.md#mandatory-role-isolation-and-execution-boundaries).
 
@@ -49,7 +49,7 @@ Available skills read: Superpowers brainstorming and writing-plans, Impeccable s
 | Initial UI locale and browser/AT matrix | Product/UX: recommend Uzbek Latin externalized strings; supported-device matrix confirmed from actual users | First product-facing delivery (including T02 if its shell is proposed for delivery), otherwise T08/T11; not backend component readiness |
 | Financial G05–07/G13, scale/timezone/rates/eligibility | Product owner signs exact synthetic examples; no inferred active-student rule | T12–16 relevant policy/command paths |
 | Tracking/retention G10/G12 | Product/privacy decision owner approves definitions/purpose and store inventory | T09 live collection/expiry; synthetic explicit alternatives can proceed |
-| DO topology, CI provider, region/budget/RPO/RTO | Operations/user decision before infrastructure | T18 deployment configuration/activation |
+| Cloudflare account/Worker/Hyperdrive/Queue and PostgreSQL hosting topology, CI provider, regions/budget/RPO/RTO | Operations/user decision before infrastructure | T18 deployment configuration/activation |
 
 The only present approval needed is this plan plus a selected bounded execution batch. Business finance questions do not block T00–T08 synthetic read foundations. Metadata versions are candidate observations, not compatible installed pins:
 
@@ -308,13 +308,13 @@ For each task's named test file, proposed focused invocation is `docker compose 
 - [ ] Approve budget before load: proposed 100 admitted unique events/sec for 30 min with worker interruption/concurrent reads; 50 schools/50k students/10M events per month are design targets, not results. Check every acknowledged event persists and replay counts remain exact; define p95/queue/storage thresholds before run, never choose them after seeing output.
 - [ ] Verify privacy store retention/deletion inventory separately; expiry disabled until approved and rebuild/provenance implications proved. R1/R2 + Adviser review operations and final applicable UI evidence; no deployment claim.
 
-### T18 — Separate live integrations and DigitalOcean delivery (M7/M8)
+### T18 — Separate live integrations and Cloudflare Workers delivery (M7/M8)
 
 **Writer:** separately authorized integration/release owners; this plan grants no sibling edits or cloud write. **Proposed analytics-owned paths only after approval:** `adapters/source/*`, `docs/operations/cutover.md`, `.github/workflows/ci.yml` if GitHub Actions chosen, `deploy/*` if topology chosen. Operational source paths cannot be specified as owned here; new scoped task reinspects them.
 
 - [ ] Obtain repository-specific source/auth/tracker/live-data/credential/deployment permissions and policy/cutover decisions. RED synthetic producer rollback emits no outbox event, commit does; source barrier snapshot coherent; trusted credentials scoped producer+environment. Source code and original ORM stay in separately authorized repository.
 - [ ] Prove real adapter using safe synthetic records before one-surface-at-a-time tracking rollout; avoid double old/new tracking. Confirm privacy, retention, canonical identity and authoritative acquisition capture; no live school data in repository fixtures/logs.
-- [ ] Select CI provider/DO topology/registry/region/cost/RPO/RTO and managed DB version deliberately; exact image digest rollout and secret handling, no accidental push-trigger deploy. CI starts as validation only if permitted; deployment gated/environment-approved.
+- [ ] Select CI provider, Cloudflare account/environment, Worker deployment path, Hyperdrive/Queue topology, PostgreSQL host/region, backup RPO/RTO, and costs deliberately; define secret handling and prevent accidental push-triggered deployment. CI starts as validation only if permitted; deployment remains gated/environment-approved.
 - [ ] QA replays partial rollout/source outage and nonproduction restore; R1/R2 + Tester + Adviser exact combined candidate. Before reporting published revision inspect remote SHA; before CI success inspect checks for that SHA; before running service inspect actual deployment. Merge/deploy/live migration remain distinct approval steps.
 
 ## Acceptance and review choreography
