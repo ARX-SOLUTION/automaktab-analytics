@@ -30,15 +30,17 @@
     "@babel/core": "7.29.7",
     "@babel/preset-typescript": "7.29.7",
     "@babel/plugin-syntax-decorators": "7.29.7",
-    "@babel/plugin-syntax-jsx": "7.29.7"
+    "@babel/plugin-syntax-jsx": "7.29.7",
+    "@cloudflare/workers-types": "5.20260926.1",
+    "wrangler": "4.144.0"
   },
   "packageManager": "pnpm@12.9.1",
   "scripts": {
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p apps/worker/tsconfig.cloudflare.json --noEmit",
     "build": "tsc -p tsconfig.build.json && node tools/foundation/build-packages.mjs && vite build --config apps/web/vite.config.ts && node tools/foundation/build-packages.mjs --tracker",
     "lint": "eslint apps packages tools/foundation tools/*.ts *.ts *.mjs",
     "test": "pnpm test:unit && pnpm test:integration",
-    "test:unit": "vitest run --config vitest.config.ts apps/api/test/config.test.ts apps/api/test/billing-calculation.test.ts apps/api/test/billing-period.test.ts apps/api/test/reporting.test.ts tools/foundation/boundaries.test.ts packages/contracts/test packages/tracker/test apps/web/test",
+    "test:unit": "vitest run --config vitest.config.ts apps/api/test/config.test.ts apps/api/test/billing-calculation.test.ts apps/api/test/billing-period.test.ts apps/api/test/reporting.test.ts tools/foundation/boundaries.test.ts packages/contracts/test packages/tracker/test apps/web/test apps/worker/test/cloudflare-runtime.test.ts",
     "test:integration": "vitest run --config vitest.config.ts apps/api/test/foundation.integration.test.ts apps/api/test/auth.integration.test.ts apps/api/test/collection.integration.test.ts apps/api/test/schools.integration.test.ts apps/api/test/schools-summary.integration.test.ts apps/api/test/worker.integration.test.ts apps/api/test/billing.integration.test.ts apps/api/test/reporting.integration.test.ts apps/api/test/product-http.integration.test.ts",
     "test:e2e": "playwright test --config playwright.config.ts",
     "check:boundaries": "node --experimental-strip-types tools/check-boundaries.ts",
@@ -50,6 +52,7 @@
     "start:api": "node apps/api/dist/main.js",
     "start:worker": "node apps/worker/dist/main.js",
     "start:web": "vite preview --config apps/web/vite.config.ts --configLoader native --host 0.0.0.0 --port 5173",
-    "proof": "timeout --signal=TERM --kill-after=30s 900 sh tools/foundation/proof.sh"
+    "proof": "timeout --signal=TERM --kill-after=30s 900 sh tools/foundation/proof.sh",
+    "test:workers": "pnpm build && vitest run --config vitest.config.ts apps/worker/test/cloudflare-local.test.ts"
   }
 }

@@ -12,7 +12,7 @@ export class AuthService {
  get configured(){return !!(this.options.founderId&&this.options.sourceUrl&&this.options.sourceServiceToken&&this.options.sourceAuthorizeUrl&&this.options.audience);}
  async createDemoSession(origin:string|undefined){this.requireOrigin(origin);if(this.options.environment!=='synthetic')throw new AccessError('FOUNDER_REQUIRED',403);return this.create('synthetic-founder');}
  private async create(actorId:string){
-  const token=randomBytes(32).toString('hex'),csrfToken=digest('csrf:'+token);
+  const token=Buffer.from(randomBytes(32)).toString('hex'),csrfToken=digest('csrf:'+token);
   await this.store.database.db.execute(sql`INSERT INTO analytics_sessions(token_hash,actor_id,csrf_hash,environment,expires_at) VALUES(${digest(token)},${actorId},${digest(csrfToken)},${this.options.environment},now()+interval '8 hours')`);
   return {token,session:{actorId,displayName:'Platforma administratori',csrfToken,environment:this.options.environment} satisfies Session};
  }
@@ -27,7 +27,7 @@ export class AuthService {
  async revoke(token:string|undefined){await this.authenticate(token);await this.store.database.db.execute(sql`UPDATE analytics_sessions SET revoked_at=now() WHERE token_hash=${digest(token!)}`);}
  async beginHandoff(){
   if(!this.configured)throw new AccessError('AUTH_NOT_CONFIGURED',503);
-  const state=randomBytes(32).toString('hex'),nonce=randomBytes(32).toString('hex');
+  const state=Buffer.from(randomBytes(32)).toString('hex'),nonce=Buffer.from(randomBytes(32)).toString('hex');
   await this.store.database.db.execute(sql`INSERT INTO analytics_handoffs(state_hash,nonce,expires_at) VALUES(${digest(state)},${nonce},now()+interval '5 minutes')`);
   const url=new URL(this.options.sourceAuthorizeUrl!);url.searchParams.set('state',state);url.searchParams.set('nonce',nonce);url.searchParams.set('audience',this.options.audience!);url.searchParams.set('returnTo',this.options.origin+'/auth/callback');
   return {state,authorizeUrl:url.href};

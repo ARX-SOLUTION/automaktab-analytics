@@ -28,7 +28,7 @@ Use React + Vite, current supported NestJS, Drizzle, PostgreSQL, pnpm and latest
 
 Local application runtime is **Docker only**. Future web development, API, worker, database, test runners and migration exercises run inside approved local containers; the host is for editor, Git and Docker orchestration. No host pnpm/Node app-runtime workflow is implied. No Docker image or Compose file is created by this document. P01 must inspect container commands, engines, locks, mounts, exposed ports and lifecycle effects before they become allowlisted executable commands.
 
-DigitalOcean is the CI/CD deployment target. Proposed architecture uses reproducible container images built/tested in CI and a separately approved deployment stage. Exact CI provider, Droplet/App Platform choice, database hosting, registry, regions, TLS/secrets, backup RPO/RTO and costs remain operational decisions. No cloud resource, workflow, credential, push-triggered deployment or live migration is activated now. An initial synthetic local slice does not depend on these production choices.
+Cloudflare Workers is the current hosted runtime target, selected by the user on 9 October 2026 and superseding the earlier DigitalOcean target. PostgreSQL remains the system of record and hosted connections use Hyperdrive. The CI provider, Cloudflare account/environment, Worker deployment path, Hyperdrive/Queue provisioning, database hosting/region, secrets, backup RPO/RTO and costs remain operational decisions. No cloud resource, workflow, credential, push-triggered deployment or live migration is activated by this decision.
 
 ### Foundation setup and compatibility register
 
