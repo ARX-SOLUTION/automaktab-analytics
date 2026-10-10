@@ -49,6 +49,7 @@ test('owner reviews real contract, invoice, receipt, correction and full reversa
 test('owner allocates cancellation entitlement separately from cash with a fresh reviewed grant',async({page})=>{
  test.setTimeout(120000);const company='synthetic-school-2';
  await page.goto(`/contracts?from=2026-10-01&to=2026-11-01&companyId=${company}`);await page.getByRole('button',{name:'Sinov egasi sifatida kirish'}).click();
+ await expect(page.getByRole('heading',{name:'Shartnomalar',exact:true})).toBeVisible();
  const policy=await readData<{status:string}>(await page.request.get('/api/v1/billing/policy-status'));if(policy.status!=='active'){await page.getByRole('button',{name:'Qoidalarni ko‘rib tasdiqlash'}).click();await committed(page,'/billing/policy-confirmations',()=>page.getByRole('button',{name:'Qoidalarni tasdiqlash',exact:true}).click());}
  await page.locator('#contract-company').selectOption(company);await page.locator('#contract-plan').selectOption('fixed_monthly');await page.locator('#contract-amount').fill('100000');await page.locator('#contract-from').fill('2026-10-01');await page.getByRole('button',{name:'Server reviewini olish',exact:true}).click();
  const contract=await committed<Contract>(page,'/billing/contracts',()=>review(page,'Kelishuv oqibatlarini tasdiqlang').getByRole('button',{name:'Tasdiqlash',exact:true}).click());

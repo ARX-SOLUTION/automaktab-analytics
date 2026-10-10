@@ -45,6 +45,7 @@
     "test:e2e": "playwright test --config playwright.config.ts",
     "check:boundaries": "node --experimental-strip-types tools/check-boundaries.ts",
     "test:focused": "node --experimental-strip-types tools/test-focused.ts",
+    "db:reset:checks": "node build/tools/foundation/reset-checks-db.js",
     "db:verify": "node build/tools/foundation/verify-db.js",
     "db:migrate": "node build/tools/foundation/migrate.js",
     "db:seed:synthetic": "node build/tools/foundation/seed.js",
