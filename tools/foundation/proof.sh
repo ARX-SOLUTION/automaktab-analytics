@@ -13,6 +13,7 @@ pnpm check:boundaries
 pnpm lint
 pnpm typecheck
 pnpm build
+pnpm db:reset:checks
 pnpm db:verify
 pnpm test
 pnpm db:seed:synthetic
